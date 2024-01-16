@@ -18,11 +18,9 @@ router.get('/movies', (req, res) => {
 
   router.post('/movies/create', fileUploader.single('movie-cover-image'), (req, res) => {
     const { title, description } = req.body;
-    console.log('req.file', req.file)
    
     Movie.create({ title, description, imageUrl: req.file.path })
       .then(newlyCreatedMovieFromDB => {
-        console.log(newlyCreatedMovieFromDB);
         res.redirect('/movies')
       })
       .catch(error => console.log(`Error while creating a new movie: ${error}`));
